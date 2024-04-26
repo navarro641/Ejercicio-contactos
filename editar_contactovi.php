@@ -5,12 +5,10 @@ $id_contacto=$_POST['id'];
 
 
 
-# Consultar la lista de contactos desde la base de datos
 $sql = "SELECT * FROM contactos WHERE id=$id_contacto";
 $stmt = $conexion->query($sql);
 $contactos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-# Cerrar conexión
 $conexion = null;
 ?>
 
@@ -23,7 +21,6 @@ $conexion = null;
 </head>
 <body>
 
-    <!-- Formulario para agregar un nuevo contacto -->
     <h2>Editar Contacto</h2>
   
     <form action="editar.php" method="POST">

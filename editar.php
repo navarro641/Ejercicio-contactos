@@ -12,7 +12,6 @@ if (isset($_POST['btneditar'])) {
         $telefono = $_POST["telefono"];
         $correo = $_POST["correo"];
         
-        // Preparar la consulta SQL de actualización
         $sql = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, correo=:correo WHERE id=:id_contacto";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
@@ -20,13 +19,10 @@ if (isset($_POST['btneditar'])) {
         $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
         $stmt->bindParam(':id_contacto', $id_contacto, PDO::PARAM_INT);
 
-        // Ejecutar la consulta
         if ($stmt->execute()) {
-            // Redireccionar si la actualización fue exitosa
             header("location: contactos.php");
             exit();
         } else {
-            // Mostrar mensaje de error si la actualización falló
             echo "Error al actualizar contacto.";
         }
     }

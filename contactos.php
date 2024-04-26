@@ -1,9 +1,7 @@
 <?php
 session_start();
-# Conexión a la base de datos utilizando PDO
 include_once ("conexion.php");
 $id_usuario = $_SESSION["user_id"];
-# Consultar la lista de contactos desde la base de datos
 $sql = "SELECT c.id, c.nombre, c.telefono, c.correo FROM contactos AS c
 INNER JOIN contactosxusuario AS cu ON cu.id_contacto=c.id
 INNER JOIN usuarios AS u ON u.id=cu.id_usuario

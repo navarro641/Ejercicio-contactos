@@ -8,7 +8,6 @@
 <body>
     <h1>USUARIOS</h1>
     
-    <!-- Formulario para agregar un nuevo contacto -->
     <h2>Iniciar Sesion</h2>
     <form action="login.php" method="POST">
         <input type="text" name="username" placeholder="Nombre de usuario" required>

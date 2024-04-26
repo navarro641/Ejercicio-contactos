@@ -12,7 +12,6 @@ if (isset($_POST['btningresar'])) {
         $sql = $conexion->query("SELECT id FROM usuarios WHERE username='$usu' AND contrasena='$con'");
         $usuario = $sql->fetch(PDO::FETCH_ASSOC);
         if ($usuario) {
-            // Inicio de sesión exitoso, establecer ID de usuario en la variable de sesión
             $_SESSION['user_id'] = $usuario['id'];
             header("location: vista3contacto.php");
             exit();

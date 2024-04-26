@@ -10,7 +10,6 @@ session_start()
 </head>
 <body>
     
-    <!-- Formulario para agregar un nuevo contacto -->
     <h2>Agregar Contacto</h2>
     <form action="crear_contacto.php" method="POST">
         <?php
