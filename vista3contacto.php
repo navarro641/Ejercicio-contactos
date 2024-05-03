@@ -1,5 +1,9 @@
 <?php
-session_start()
+session_start();
+if (!isset($_SESSION['nombre_usuario'])) {
+    header('Location: login.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +17,7 @@ session_start()
     <h2>Agregar Contacto</h2>
     <form action="crear_contacto.php" method="POST">
         <?php
-        $id_usuario=$_SESSION['user_id'];
+        $id_usuario=$_SESSION['idUsuario'];
     
         ?>
         <br/>
@@ -26,5 +30,7 @@ session_start()
         <input type="submit" value="Agregar Contacto"></input>
     </form>
     <a href="cerrar.php">Salir</a> 
+    <br/>
+    <a href="bloqueo_vista.php">Bloquear Sesión</a>
 </body>
 </html>

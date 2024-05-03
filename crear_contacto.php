@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["nombre"]) || empty($_POST["telefono"]) || empty($_POST["correo"])) {
         echo "Por favor, complete todos los campos.";
     } else {
-        $id_usuario = $_SESSION["user_id"];
+        $id_usuario = $_SESSION["idUsuario"];
 
         $nombre = $_POST["nombre"];
         $telefono = $_POST["telefono"];
