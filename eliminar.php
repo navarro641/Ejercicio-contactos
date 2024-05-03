@@ -3,9 +3,10 @@ session_start();
 include_once("conexion.php");
 
 if (isset($_POST['btneliminar'])) {
+    $id_usuario= $_SESSION['idUsuario'];
     $id_contacto = $_POST['id_contacto'];
 
-    $sql_delete_cxu = "DELETE FROM contactosxusuario WHERE id_contacto = :id_contacto";
+    $sql_delete_cxu = "DELETE FROM contactosxusuario WHERE id_contacto = :id_contacto AND id_usuario=:id_usuario";
     $stmt_cxu = $conexion->prepare($sql_delete_cxu);
     $stmt_cxu->bindParam(':id_contacto', $id_contacto, PDO::PARAM_INT);
     $stmt_cxu->execute();

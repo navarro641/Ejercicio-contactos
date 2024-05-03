@@ -1,23 +1,41 @@
-<?php 
+<?php
 session_start();
-include_once("conexion.php");
 
+// Verifica si el usuario ha iniciado sesión
+if (!isset($_COOKIE['nombre_usuario'])) {
+    header('Location: login.php');
+    exit;
+}
 
-if (isset($_POST['btningresar'])) {
-    if (empty($_POST["username"]) || empty($_POST["contrasena"])) {
-        echo "Por favor, llene todos los campos.";
+// Verifica si se ha enviado el formulario de desbloqueo de sesión
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["password"])) {
+        // No hacer nada si el campo de contraseña está vacío
     } else {
-        $usu = $_POST["username"];
-        $con = $_POST["contrasena"];
-        $sql = $conexion->query("SELECT id FROM usuarios WHERE username='$usu' AND contrasena='$con'");
-        $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+        // Verificar la contraseña ingresada
+        include_once("conexion.php");
+        $username = $_COOKIE['nombre_usuario'];
+        $stmt = $conexion->prepare("SELECT contrasena FROM usuarios WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
         if ($usuario) {
-            $_SESSION['user_id'] = $usuario['id'];
-            header("location: vista3contacto.php");
-            exit();
+            $contrasena_correcta = $usuario['contrasena']; // Obtén la contraseña almacenada
+            if ($_POST["password"] == $contrasena_correcta) {
+                // La contraseña es correcta, redirige al usuario a la página de contactos
+                header('Location: vista3contacto.php');
+                exit;
+            } else {
+                // La contraseña es incorrecta, redirige al usuario al formulario de bloqueo con un mensaje de error
+                header('Location: bloqueo_vista.php?error=1');
+                exit;
+            }
         } else {
-            echo "Nombre de usuario o contraseña incorrectos.";
+            // El usuario no existe, redirige al usuario al formulario de bloqueo con un mensaje de error
+            header('Location: bloqueo_vista.php?error=1');
+            exit;
         }
     }
 }
-
+?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once ("conexion.php");
-$id_usuario = $_SESSION["user_id"];
+$id_usuario = $_SESSION["idUsuario"];
 $sql = "SELECT c.id, c.nombre, c.telefono, c.correo FROM contactos AS c
 INNER JOIN contactosxusuario AS cu ON cu.id_contacto=c.id
 INNER JOIN usuarios AS u ON u.id=cu.id_usuario
@@ -34,16 +34,16 @@ $conexion = null;
     <h1>Contactos Registrados</h1>
     <table>
         <tr>
-            <th>Id</th>
+            <th>#</th>
             <th>Nombre</th>
             <th>telefono</th>
             <th>Correo</th>
             <th>Gestion</th>
 
         </tr>
-        <?php foreach ($contactos as $contacto): ?>
+        <?php foreach ($contactos as $key => $contacto): ?>
             <tr>
-                <td><?php echo $contacto['id']; ?></td>
+                <td><?php echo ($key+1); ?></td>
                 <td><?php echo $contacto['nombre']; ?></td>
                 <td><?php echo $contacto['telefono']; ?></td>
                 <td><?php echo $contacto['correo']; ?></td>
